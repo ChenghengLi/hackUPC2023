@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, File, UploadFile,Response
 from fastapi.middleware.cors import CORSMiddleware  
 
 app = FastAPI()
@@ -6,6 +6,12 @@ app = FastAPI()
 from src.Summarizer import Summarizer
 from src.Reader import Reader
 from src.QuestionGenerator import QGenerator
+import pdfkit
+import shutil
+import tempfile
+app = FastAPI()
+
+
 
 # NEW
 app.add_middleware(
@@ -26,4 +32,9 @@ def home():
     question = QGenerator(reader.returnPaperContent(1,2))
     return question.gerateMCQ()
 
+    # Return the PDF file
 
+    # Aquí puedes trabajar con el contenido del archivo, por ejemplo, guardarlo en disco
+    rd = Reader("src/exempledef.pdf")
+    print(rd.returnPaperContent())
+    return {"filename": file.filename}
