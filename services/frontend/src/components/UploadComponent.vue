@@ -5,7 +5,7 @@
     <input type="file" accept="application/pdf,application/vnd.ms-excel" ref="fileInput" style="display: none;" @change="handleFileUpload">
   </button>
 
-    <FileComponent v-if="!showButton"/>
+    <FileComponent v-if="!showButton" @click="cancelFile"/>
     <TextComponent v-if="!showButton" name="File uploaded successfully!"/>
     <StartButtonComponent :file="formData"/>
   </div>
@@ -17,16 +17,18 @@ import FileComponent from './FileComponent.vue';
 import TextComponent from './TextComponent.vue';
 import StartButtonComponent from '@/components/StartButtonComponent.vue'
 const showButton = ref(true);
-
+const formData = ref(null)
+const selectedFile = ref("")
 const fileInput = ref(null)
 const handleButtonClick = () => {
   // add your button click event handler code here
   fileInput.value.click()
 }
+const cancelFile = () => {
+  showButton.value = !showButton.value
+}
 
 
-const formData = ref(null)
-const selectedFile = ref("")
 function handleFileUpload(event) {
   selectedFile.value = event.target.files[0]
   if (!selectedFile.value || selectedFile.value.type !== 'application/pdf') {
