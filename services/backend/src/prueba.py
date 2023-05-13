@@ -1,6 +1,5 @@
 from Summarizer import Summarizer
 from Reader import Reader
-from pprint import pprint
 from QuestionGenerator import QGenerator
 
 
