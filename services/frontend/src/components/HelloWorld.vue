@@ -1,22 +1,23 @@
 <template>
   <div>
-    <p>{{ msg }}</p>
+    <p>{{ msg1 }}</p>
   </div>
+  
+
 </template>
 
 <script setup>
 import {onMounted, ref} from 'vue';
-
-import { inject } from "vue";
+import { inject} from "vue";
 
 const axios = inject('axios');
 
-const msg = ref("hola")
+const msg1 = ref("adios")
 
 function getMessage() {
   axios.get('/')
     .then((res) => {
-      msg.value = res.data;
+      msg1.value = res.data;
     })
     .catch((error) => {
       console.error(error);
@@ -26,6 +27,7 @@ function getMessage() {
 onMounted(async () => {
   getMessage();
 });
+
 
 
 </script>
