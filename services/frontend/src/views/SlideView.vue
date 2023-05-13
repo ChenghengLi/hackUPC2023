@@ -20,8 +20,7 @@
         <span class="carousel-control-next-icon" :class="{ 'disable': slides[currentSlide].types !== 'Summary'  && !acabarExercici }" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </a>
-
-      <button class="backHome"> Back </button>
+      <button class="btn btn-outline-info backHome" @click="backHome">Back</button>
     </div>
   </div>
 </template>
@@ -67,7 +66,9 @@ function nextSlide() {
     acabarExercici.value=false;
   }
 }
-
+const backHome = () => {
+  router.push('/')
+}
 function getAcabat(data) {
   acabarExercici.value = data;
 }
@@ -85,8 +86,6 @@ onMounted(() => {
   });
 });
 </script>
-
-
 
 <style scoped>
 .carousel-item {
@@ -110,6 +109,12 @@ onMounted(() => {
   font-size: 15px;
   font-weight: bold
 
+@media only screen and (max-width: 768px) {
+  .backHome {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
 }
+
 
 </style>
