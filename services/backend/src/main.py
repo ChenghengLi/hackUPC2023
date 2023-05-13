@@ -4,12 +4,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from src.Summarizer import Summarizer
 from src.Reader import Reader
 from src.QuestionGenerator import QGenerator
+import pdfplumber
+from fastapi.responses import JSONResponse
 
 
 app = FastAPI()
 
 origins = [
-    "https://frontend-chenghengli.cloud.okteto.net",
+    "https://frontend-chenghengli.cloud.okteto.net/",
     "http://localhost:8080"
 ]
 
@@ -22,20 +24,23 @@ app.add_middleware(
 )
 
 
+reader = Reader("src/exempledef.pdf")
 
-
-@app.get("/")
-def home():
+@app.get("/data/")
+async def getQuestions():
     reader = Reader("src/exempledef.pdf")
     summarizer = Summarizer()
     summarizer.detect_language(reader.returnPaperContent())
     question = QGenerator(reader.returnPaperContent(1,2))
-    return question.gerateMCQ()
+    return "prueba" #JSONResponse(content=question.gerateMCQ())
 
     # Return the PDF file
 
 @app.post("/upload/")
-async def create_upload_file(file: FormData):
-    await file.read()
-    print("receabed file")
-    return {"filename" : file.filename}
+async def create_upload_file(pdf_file: UploadFile = File(...)):
+    with pdf_file.file as file:
+        pdf = pdfplumber.load(file)
+        pages = pdf.pages
+        for page in pages:
+            text = page.extract_text()
+            print(text)

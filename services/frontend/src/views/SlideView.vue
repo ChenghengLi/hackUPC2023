@@ -27,14 +27,21 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import * as bootstrap from 'bootstrap';
-import SummaryComponent from '@/components/SummaryComponent.vue';
-import GameComponent from '@/components/GameComponent.vue';
+import { ref, onMounted } from 'vue'
+import * as bootstrap from 'bootstrap'
+import SummaryComponent from '@/components/SummaryComponent.vue'
+import GameComponent from '@/components/GameComponent.vue'
+
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+
+
+
 const slides = ref([
   {
     types: "Summary",
-    content: "Hello"
+    content: route.params.data
   },
   {
     types: "Game",
@@ -48,11 +55,12 @@ const slides = ref([
     answer: "waste",
     wrongAnswer: ['Wasting', 'Precious Time', 'Spend']
   }
-]);
+])
 
-const carouselId = 'carousel-' + Math.floor(Math.random() * 1000);
+const carouselId = 'carousel-' + Math.floor(Math.random() * 1000)
 const currentSlide = ref(0);
 const acabarExercici = ref(false)
+
 function nextSlide() {
   if (currentSlide.value < slides.value.length - 1) {
     currentSlide.value++;
@@ -73,18 +81,20 @@ onMounted(() => {
 
   const carouselItems = document.querySelectorAll(`#${carouselId} .carousel-item`);
   carouselItems.forEach(item => {
-    item.style.height = window.innerHeight + 'px';
+    item.style.height = window.innerHeight + 'px'
   });
 });
-</script scoped>
+</script>
 
-<style>
+
+
+<style scoped>
 .carousel-item {
-  height: 100%;
+  height: 100%
 }
 
 .disable {
-  display: none;
+  display: none
 }
 
 .backHome {
@@ -98,7 +108,7 @@ onMounted(() => {
   -o-border-radius: 20px;
   color:#fff;
   font-size: 15px;
-  font-weight: bold;
+  font-weight: bold
 
 }
 

@@ -6,6 +6,7 @@
 
 
 <script setup>
+
 import {defineProps} from 'vue'
 const props = defineProps ({
     summary:{
@@ -14,6 +15,10 @@ const props = defineProps ({
     }
 
 }) 
+
+
+
+
 
 </script>
 
