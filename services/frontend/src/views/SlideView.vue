@@ -33,14 +33,14 @@ import GameComponent from '@/components/GameComponent.vue'
 
 import { useRoute } from 'vue-router'
 
-const route = useRoute()
+const router = useRoute()
 
 
 
 const slides = ref([
   {
     types: "Summary",
-    content: route.params.data
+    content: router.params.data
   },
   {
     types: "Game",
@@ -108,6 +108,7 @@ onMounted(() => {
   color:#fff;
   font-size: 15px;
   font-weight: bold
+}
 
 @media only screen and (max-width: 768px) {
   .backHome {

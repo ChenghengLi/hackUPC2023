@@ -8,6 +8,8 @@ class Reader:
             self.symbols = "#$%&'()*+,-./:;<=>?@[\]^_`{|}~"
         self.filePath = paperFilePath
 
+    def setPaperContent(self, paper):
+        self.paperContent = paper
 
     def displayPaperContent(self,  page_start=0, page_end=5):
         for page in self.paperContent[page_start:page_end]:
@@ -22,6 +24,9 @@ class Reader:
 
     def eliminateSymbols(self, content):
         return "".join(ch for ch in content if ch.isalnum() or ch.isspace() or ch in self.symbols)
+    
+    def pages(self):
+        return len(self.paperContent)
 
 
 

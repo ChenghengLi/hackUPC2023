@@ -24,23 +24,29 @@ app.add_middleware(
 )
 
 
-reader = Reader("src/exempledef.pdf")
+reader = None
+sumerizer = None
 
 @app.get("/data/")
-async def getQuestions():
-    reader = Reader("src/exempledef.pdf")
+def getQuestions():
+    output = dict()
     summarizer = Summarizer()
     summarizer.detect_language(reader.returnPaperContent())
-    question = QGenerator(reader.returnPaperContent(1,2))
-    return "prueba" #JSONResponse(content=question.gerateMCQ())
+    i = 0
+    for i in range(0, reader.pages() + 1, 2):
+        sum = summarizer.detect_language(reader.returnPaperContent(i, i + 2))
+        question = QGenerator(reader.returnPaperContent(i, i + 2))
+        dict[i] = {"sum": sum, "question": question.gerateMCQ()}
+        i += 1
+    return "prueba" #JSONResponse(output)
 
     # Return the PDF file
 
 @app.post("/upload/")
 async def create_upload_file(pdf_file: UploadFile = File(...)):
     with pdf_file.file as file:
-        pdf = pdfplumber.load(file)
-        pages = pdf.pages
-        for page in pages:
-            text = page.extract_text()
-            print(text)
+        pdf = pdfplumber.open(file).pages
+        reader = Reader()
+        reader.setPaperContent(pdf)
+        print(reader.returnPaperContent())
+
