@@ -59,7 +59,7 @@ class Summarizer:
     summary_length:int = 0
     balance_length:bool = False
     
-    def __init__(self, language:str='dutch', summary_length:int=3, balance_length=False):
+    def __init__(self, language:str='english', summary_length:int=3, balance_length=False):
         """
         :param str language: The language to use, defaults to 'dutch'
         :param int summary_length: The default length for the summary to generate, defaults to 3

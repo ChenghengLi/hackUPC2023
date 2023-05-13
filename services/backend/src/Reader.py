@@ -5,7 +5,7 @@ class Reader:
     def __init__(self, paperFilePath = None):
         if paperFilePath is not None:
             self.paperContent = pdfplumber.open(paperFilePath).pages
-            self.symbols = "#$%&'()*+,-./:;<=>?@[\]^_`{|}~"
+        self.symbols = "#$%&'()*+,-./:;<=>?@[\]^_`{|}~"
         self.filePath = paperFilePath
 
     def setPaperContent(self, paper):

@@ -6,7 +6,7 @@ from src.Reader import Reader
 from src.QuestionGenerator import QGenerator
 import pdfplumber
 from fastapi.responses import JSONResponse
-
+import io
 
 app = FastAPI()
 
@@ -29,24 +29,27 @@ sumerizer = None
 
 @app.get("/data/")
 def getQuestions():
+    
     output = dict()
     summarizer = Summarizer()
-    summarizer.detect_language(reader.returnPaperContent())
     i = 0
     for i in range(0, reader.pages() + 1, 2):
         sum = summarizer.detect_language(reader.returnPaperContent(i, i + 2))
         question = QGenerator(reader.returnPaperContent(i, i + 2))
         dict[i] = {"sum": sum, "question": question.gerateMCQ()}
         i += 1
+    
     return "prueba" #JSONResponse(output)
 
     # Return the PDF file
 
 @app.post("/upload/")
 async def create_upload_file(pdf_file: UploadFile = File(...)):
-    with pdf_file.file as file:
+    contents = await pdf_file.read()
+    with io.BytesIO(contents) as file:
         pdf = pdfplumber.open(file).pages
         reader = Reader()
         reader.setPaperContent(pdf)
-        print(reader.returnPaperContent())
+    print(reader.returnPaperContent())
+    return {"file": pdf_file}
 

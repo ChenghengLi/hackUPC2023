@@ -39,7 +39,7 @@ const router = useRouter()
 const slides = ref([
   {
     types: "Summary",
-    content: "fdf"
+    content: router.params
   },
   {
     types: "Game",
