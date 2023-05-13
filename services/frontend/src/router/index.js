@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import SlideView from '../views/SlideView.vue'
 //import MultipleChoiceView from '../views/MultipleChoiceView.vue'
 
 const routes = [
@@ -7,6 +8,11 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/slide',
+    name: 'slide',
+    component: SlideView
   }
 ]
 

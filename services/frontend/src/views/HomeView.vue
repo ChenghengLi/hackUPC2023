@@ -2,6 +2,7 @@
   <div class="home full-screen-container d-flex flex-column justify-content-center">
     <TitleComponent></TitleComponent>
     <UploadComponent></UploadComponent>
+    <button @click="toGame">game</button>
 
   </div>
 </template>
@@ -10,7 +11,11 @@
 // @ is an alias to /src
 import TitleComponent from '@/components/TitleComponent.vue'
 import UploadComponent from '@/components/UploadComponent.vue';
-
+import { useRouter } from 'vue-router'
+const router = useRouter()
+const toGame = () => {
+  router.push('/slide')
+}
 
 
 </script>
