@@ -20,6 +20,8 @@
         <span class="carousel-control-next-icon" :class="{ 'disable': slides[currentSlide].types !== 'Summary'  && !acabarExercici }" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </a>
+
+      <button class="backHome"> Back </button>
     </div>
   </div>
 </template>
@@ -74,7 +76,7 @@ onMounted(() => {
     item.style.height = window.innerHeight + 'px';
   });
 });
-</script>
+</script scoped>
 
 <style>
 .carousel-item {
@@ -83,6 +85,21 @@ onMounted(() => {
 
 .disable {
   display: none;
+}
+
+.backHome {
+  background-color: rgb(144, 30, 167);
+  border: 1px solid;
+  margin:0 15px;
+  width: 140px;
+  height: 50px;
+  border-radius: 20px;
+  -moz-border-radius:20px;
+  -o-border-radius: 20px;
+  color:#fff;
+  font-size: 15px;
+  font-weight: bold;
+
 }
 
 </style>
