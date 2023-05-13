@@ -8,23 +8,11 @@
   </template>
   
   <script setup>
-  import axios from 'axios'
+ 
   import {defineProps} from 'vue'
   const onClick = () => {
     
-    axios.post('/upload', props.file, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-    .then(response => {
-      console.log(response.data)
-      // handle the response from the server here
-    })
-    .catch(error => {
-      console.log(error)
-      // handle any errors that occur here
-    })
+  
   };
 
   const props = defineProps({
