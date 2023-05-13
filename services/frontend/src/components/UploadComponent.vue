@@ -49,7 +49,7 @@ const cancelFile = () => {
 
   const onClick = () => {
     console.log("starte")
-    axios.get('/data')
+    axios.get('/data/')
     .then((res) => {
       console.log(res.data)
       msg.value = res.data;
