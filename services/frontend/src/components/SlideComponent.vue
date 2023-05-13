@@ -1,9 +1,6 @@
 <template>
     <div class="container-fluid">
       <div :id="carouselId" class="carousel slide" data-bs-ride="carousel">
-        <ol class="carousel-indicators">
-          <li v-for="(slide, index) in slides" :key="index" :data-bs-target="`#${carouselId}`" :data-bs-slide-to="index" :class="{active: index === currentSlide}"></li>
-        </ol>
         <div class="carousel-inner">
           <div v-for="(slide, index) in slides" :key="index" :class="{active: index === currentSlide}" class="carousel-item">
             <img :src="slide.imageUrl" class="d-block w-100" alt="slide image">
@@ -13,19 +10,22 @@
             </div>
           </div>
         </div>
-        <button class="carousel-control-prev" type="button" :data-bs-target="`#${carouselId}`" data-bs-slide="prev" @click="prevSlide()">
+        <a class="carousel-control-prev" href="#" :data-bs-target="`#${carouselId}`" data-bs-slide="prev" @click="prevSlide()">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" :data-bs-target="`#${carouselId}`" data-bs-slide="next" @click="nextSlide()">
+        </a>
+        <a class="carousel-control-next" href="#" :data-bs-target="`#${carouselId}`" data-bs-slide="next" @click="nextSlide()">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
-        </button>
+        </a>
       </div>
     </div>
   </template>
   
   <script setup>
+  import { ref, onMounted } from 'vue';
+  import * as bootstrap from 'bootstrap';
+  
   const slides = [
     {
       imageUrl: 'https://via.placeholder.com/800x400?text=Slide+1',
@@ -46,36 +46,41 @@
   
   const carouselId = 'carousel-' + Math.floor(Math.random() * 1000);
   
-  let currentSlide = 0;
+  const currentSlide = ref(0);
   
   function nextSlide() {
-    if (currentSlide < slides.length - 1) {
-      currentSlide++;
+    if (currentSlide.value < slides.length - 1) {
+      currentSlide.value++;
     } else {
-      currentSlide = 0;
+      currentSlide.value = 0;
     }
   }
   
   function prevSlide() {
-    if (currentSlide > 0) {
-      currentSlide--;
+    if (currentSlide.value > 0) {
+      currentSlide.value--;
     } else {
-      currentSlide = slides.length - 1;
+      currentSlide.value = slides.length - 1;
     }
   }
   
-  const mounted = () => {
-    const myCarousel = new bootstrap.Carousel(document.querySelector(`#${carouselId}`), {
+  onMounted(() => {
+    new bootstrap.Carousel(document.querySelector(`#${carouselId}`), {
       interval: 2000,
       keyboard: true,
       ride: true,
       pause: 'hover'
     });
-  };
+  
+    const carouselItems = document.querySelectorAll(`#${carouselId} .carousel-item`);
+    carouselItems.forEach(item => {
+      item.style.height = window.innerHeight + 'px';
+    });
+  });
   </script>
   
-  <style scoped>
+  <style>
   .carousel-item {
-    height: 100vh;
+    height: 100%;
   }
   </style>
