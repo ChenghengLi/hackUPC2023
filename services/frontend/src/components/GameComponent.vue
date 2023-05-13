@@ -1,17 +1,32 @@
 <template>
     <div class="question">{{ props.question }}</div>
-    <button class="floating-button" :style="{ bottom: buttonPosition.bottom, left: buttonPosition.left }">
+    <button class="floating-button" :class="{'disable': acabat }" :style="{ bottom: buttonPosition.bottom, left: buttonPosition.left }" @click="correctButton">
       {{props.answer}}
     </button>
     <div v-for="(i,index) in props.wrongAnswer" :key="index">
-      <button class="floating-button" :style="{ bottom: wrongButtonPositions[index].bottom, left: wrongButtonPositions[index].left }">
+      <button class="floating-button" :class="{'disable': acabat }" :style="{ bottom: wrongButtonPositions[index].bottom, left: wrongButtonPositions[index].left }" @click="wrongButton">
         {{i}}
       </button>
     </div>
+    <div v-if="acabat">
+        {{ description }}
+      </div>
   </template>
   
   <script setup>
+    
+import { ref, onMounted } from 'vue';
   import { defineProps } from 'vue';
+  import { defineEmits } from 'vue';
+
+const emits = defineEmits(['childEvent']);
+
+function handleClick(e) {
+  const data = e;
+  emits('childEvent', data);
+}
+  let description = ref("")
+  let acabat = ref(false)
   const props = defineProps({
     question: {
       type: String,
@@ -26,9 +41,20 @@
       default: () => []
     }
   });
-  
-  import { ref, onMounted } from 'vue';
-  
+
+  const correctButton = () => {
+    description = "You are correct!"
+    acabat = true
+    handleClick(true)
+
+  }
+
+  const wrongButton = () => {
+    description = "You are wrong!"
+    acabat = true
+    handleClick(true)
+
+  }
   const buttonPosition = ref({
     bottom: Math.floor(Math.random() * (window.innerHeight - 50)) + 'px',
     left: Math.floor(Math.random() * (window.innerWidth - 50)) + 'px'
@@ -81,5 +107,9 @@
   
   .floating-button:hover {
     background-color: #0062cc;
+  }
+
+  .disable {
+    display :none;
   }
   </style>

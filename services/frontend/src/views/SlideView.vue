@@ -1,6 +1,7 @@
 <template>
   <div class="container-fluid">
     <div :id="carouselId" class="carousel slide" data-bs-ride="carousel">
+      
       <div class="carousel-inner">
         <div v-for="(slide, index) in slides" :key="index" :class="{ active: index === currentSlide }"
           class="carousel-item">
@@ -9,19 +10,14 @@
             <SummaryComponent :summary="slide.content"></SummaryComponent>
           </div>
           <div v-else>
-            <GameComponent :question="slide.question" :answer="slide.answer" :wrong-answer="slide.wrongAnswer"></GameComponent>
+            <GameComponent :question="slide.question" :answer="slide.answer" :wrong-answer="slide.wrongAnswer" @childEvent="getAcabat"></GameComponent>
           </div>
         </div>
         <img src="@/assets/background.jpeg" class="d-block w-100" alt="slide image">
       </div>
-      <a class="carousel-control-prev" href="#" :data-bs-target="`#${carouselId}`" data-bs-slide="prev"
-        @click="prevSlide()">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </a>
-      <a class="carousel-control-next" href="#" :data-bs-target="`#${carouselId}`" data-bs-slide="next"
-        @click="nextSlide()">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <a class="carousel-control-next" :class="{ 'disable': slides[currentSlide].types !== 'Summary' && !acabarExercici }" href="#" :data-bs-target="`#${carouselId}`" data-bs-slide="next"
+        @click="nextSlide()" >
+        <span class="carousel-control-next-icon" :class="{ 'disable': slides[currentSlide].types !== 'Summary'  && !acabarExercici }" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </a>
     </div>
@@ -53,25 +49,18 @@ const slides = ref([
 ]);
 
 const carouselId = 'carousel-' + Math.floor(Math.random() * 1000);
-
 const currentSlide = ref(0);
-
+const acabarExercici = ref(false)
 function nextSlide() {
   if (currentSlide.value < slides.value.length - 1) {
     currentSlide.value++;
-  } else {
-    currentSlide.value = 0;
+    acabarExercici.value=false;
   }
 }
 
-function prevSlide() {
-  if (currentSlide.value > 0) {
-    currentSlide.value--;
-  } else {
-    currentSlide.value = slides.value.length - 1;
-  }
+function getAcabat(data) {
+  acabarExercici.value = data;
 }
-
 onMounted(() => {
   new bootstrap.Carousel(document.querySelector(`#${carouselId}`), {
     interval: 2000,
@@ -90,4 +79,10 @@ onMounted(() => {
 <style>
 .carousel-item {
   height: 100%;
-}</style>
+}
+
+.disable {
+  display: none;
+}
+
+</style>
