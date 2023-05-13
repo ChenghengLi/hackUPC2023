@@ -1,14 +1,14 @@
 <template>
-    <div class="question">{{ props.question }}</div>
-    <button class="floating-button" :class="{'disable': acabat }" :style="{ bottom: buttonPosition.bottom, left: buttonPosition.left }" @click="correctButton">
+    <div class="question" style="font-weight:bold" :style="{marginTop: '10px'}">{{ props.question }}</div>
+    <button class="floating-button" :class="{'disable': acabat }" :style="{ bottom: buttonPosition.bottom, left: buttonPosition.left }" @click="correctButton" style="background-color: rgb(163, 97, 225);">
       {{props.answer}}
     </button>
     <div v-for="(i,index) in props.wrongAnswer" :key="index">
-      <button class="floating-button" :class="{'disable': acabat }" :style="{ bottom: wrongButtonPositions[index].bottom, left: wrongButtonPositions[index].left }" @click="wrongButton">
+      <button class="floating-button" :class="{'disable': acabat }" :style="{ bottom: wrongButtonPositions[index].bottom, left: wrongButtonPositions[index].left }" style="background-color: rgb(163, 97, 225);" @click="wrongButton">
         {{i}}
       </button>
     </div>
-    <div v-if="acabat">
+    <div v-if="acabat" style="font-size: 30px; text-align:center" :style="{color: description === 'You are wrong!' ? 'red' : 'green'}">
         {{ description }}
       </div>
   </template>
@@ -69,13 +69,13 @@ function handleClick(e) {
   }
   
   const moveButton = () => {
-    buttonPosition.value.bottom = parseInt(buttonPosition.value.bottom) - 3 + 'px';
+    buttonPosition.value.bottom = parseInt(buttonPosition.value.bottom) - 2 + 'px';
     if (parseInt(buttonPosition.value.bottom) < -50) {
       buttonPosition.value.bottom = window.innerHeight + 'px';
       buttonPosition.value.left = Math.floor(Math.random() * (window.innerWidth - 50)) + 'px';
     }
     for (let i = 0; i < props.wrongAnswer.length; i++) {
-      wrongButtonPositions.value[i].bottom = parseInt(wrongButtonPositions.value[i].bottom) - 3 + 'px';
+      wrongButtonPositions.value[i].bottom = parseInt(wrongButtonPositions.value[i].bottom) - 2 + 'px';
       if (parseInt(wrongButtonPositions.value[i].bottom) < -50) {
         wrongButtonPositions.value[i].bottom = window.innerHeight + 'px';
         wrongButtonPositions.value[i].left = Math.floor(Math.random() * (window.innerWidth - 50)) + 'px';
@@ -90,7 +90,7 @@ function handleClick(e) {
   
   <style scoped>
   .question {
-    font-size: 30px;
+    font-size: 20px;
   }
   
   .floating-button {
