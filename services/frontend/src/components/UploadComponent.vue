@@ -22,10 +22,6 @@ const onClick = () => {
 }
 
 const fileInput = ref(null)
-const handleButtonClick = () => {
-  // add your button click event handler code here
-  fileInput.value.click()
-}
 
 function handleFileUpload(event) {
   const selectedFile = event.target.files[0]

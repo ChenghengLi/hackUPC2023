@@ -1,8 +1,6 @@
 <template>
   <div class="home full-screen-container d-flex flex-column justify-content-center">
     <TitleComponent></TitleComponent>
-
-    <img alt="Vue logo" src="../assets/logo.png">
     <StartButtonComponent />
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     <SlideComponent />

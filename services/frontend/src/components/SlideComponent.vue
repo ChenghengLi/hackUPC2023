@@ -63,15 +63,6 @@
       currentSlide = slides.length - 1;
     }
   }
-  
-  const mounted = () => {
-    const myCarousel = new bootstrap.Carousel(document.querySelector(`#${carouselId}`), {
-      interval: 2000,
-      keyboard: true,
-      ride: true,
-      pause: 'hover'
-    });
-  };
   </script>
   
   <style scoped>
