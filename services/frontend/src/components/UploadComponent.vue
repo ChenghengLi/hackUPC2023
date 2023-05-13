@@ -7,7 +7,6 @@
 
     <FileComponent v-if="!showButton" @click="cancelFile"/>
     <TextComponent v-if="!showButton" name="File uploaded successfully!"/>
-    <StartButtonComponent :file="formData"/>
 
     <div class="row justify-content-center align-items-center">
       <div class="col-md-6">
@@ -32,7 +31,7 @@ const router = useRouter()
 const msg = ref("")
 const toGame = () => {
   router.push({ path: '/slide',
-    name: 'slide', params: { QandA: msg.value }})
+    name: 'slide', params: { data: msg.value }})
 }
 
 const showButton = ref(true)
@@ -50,7 +49,7 @@ const cancelFile = () => {
 
   const onClick = () => {
     console.log("starte")
-    axios.get('/data/')
+    axios.get('/data')
     .then((res) => {
       console.log(res.data)
       msg.value = res.data;
@@ -116,12 +115,35 @@ function handleFileUpload(event) {
   }
   
   .btn-style {
-    margin-top: 1rem; /* Add margin at the top */
-    font-size: 2rem; /* Increase font size */
-    font-weight: bold; /* Add bold font weight */
-    text-transform: uppercase; /* Add uppercase text transformation */
-    border-radius: 50px; /* Add border radius to make it round */
-    padding: 1rem 2rem; /* Add padding */
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); /* Add box shadow */
+    border: 1px solid rgb(23, 134, 218);
+    margin: 0 15px;
+    width: 140px;
+    height: 50px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: .7px;
+    background-image:linear-gradient(top, #ffffff33 1px, #ffffff00 1px, #0000001a 100%);
+    box-shadow: 0 60px 12px -18px rgba(0,0,0,0.1), 0 60px -12px rgba(0,0,0,0.1);
+    margin-bottom: 10px;
+    animation: anime 1s infinite ease-in-out alternate;
+    -webkit-animation: anime 1s infinite ease-in-out alternate;
+    animation-delay: .3s;
+  }
+
+  @keyframes anime {
+    100% {
+      transform: tranlateY(20px);
+      -webkit-transform: tranlateY(20px);
+      -moz-transform: tranlateY(20px);
+      -ms-transform: tranlateY(20px);
+      -o-transform: tranlateY(20px);
+      box-shadow:0 40px 10px -18px rgba(0,0,0,0.2), 0 40px 16px -12px rgba(0,0,0,0.2);
+    }
+  
   }
 </style>

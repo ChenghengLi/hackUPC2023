@@ -31,16 +31,15 @@ import * as bootstrap from 'bootstrap'
 import SummaryComponent from '@/components/SummaryComponent.vue'
 import GameComponent from '@/components/GameComponent.vue'
 
-import { useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 
-const route = useRoute()
-
+const router = useRouter()
 
 
 const slides = ref([
   {
     types: "Summary",
-    content: route.params.data
+    content: "fdf"
   },
   {
     types: "Game",
@@ -107,7 +106,7 @@ onMounted(() => {
   -o-border-radius: 20px;
   color:#fff;
   font-size: 15px;
-  font-weight: bold
+  font-weight: bold;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -117,7 +116,6 @@ onMounted(() => {
   border: none;
   outline: none;
   cursor: pointer;
-  z-index: 1;
   font-weight: bold;
   margin-left: 30px;
   margin-bottom: 20px;

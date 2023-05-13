@@ -11,7 +11,7 @@ from fastapi.responses import JSONResponse
 app = FastAPI()
 
 origins = [
-    "https://frontend-chenghengli.cloud.okteto.net/",
+    "https://frontend-chenghengli.cloud.okteto.net",
     "http://localhost:8080"
 ]
 
