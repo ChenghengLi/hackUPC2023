@@ -3,8 +3,6 @@
     <TitleComponent></TitleComponent>
     <StartButtonComponent />
     <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <SlideComponent />
-    <UploadComponent></UploadComponent>
 
     <StartButtonComponent></StartButtonComponent>
 
@@ -18,8 +16,8 @@ import HelloWorld from '@/components/HelloWorld.vue'
 import TitleComponent from '@/components/TitleComponent.vue'
 import StartButtonComponent from '@/components/StartButtonComponent.vue'
 
-import UploadComponent from '@/components/UploadComponent.vue';
-import SlideComponent from '@/components/SlideComponent.vue'
+
+
 </script>
 
 

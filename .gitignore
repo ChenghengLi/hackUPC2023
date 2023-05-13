@@ -22,4 +22,6 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
+*.pyc
+
 services/backend/src/s2v_old/vectors
