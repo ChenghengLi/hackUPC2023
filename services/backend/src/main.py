@@ -1,6 +1,5 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware  
-
 app = FastAPI()
 
 
@@ -19,5 +18,12 @@ app.add_middleware(
 @app.get("/")
 def home():
     return "FDSfsdfghfhgfhgfhddfdfd1111!"
+
+@app.post("/upload")
+async def uploadpdf(file: UploadFile = File(...)):
+    contents = await file.read()
+    # do something with the file contents
+    print(contents)
+    return {"filename": file.filename}
 
 
