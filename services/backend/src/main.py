@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile,Response, FormData
+from fastapi import FastAPI, File, UploadFile,Response
 from fastapi.middleware.cors import CORSMiddleware  
 
 from src.Summarizer import Summarizer
@@ -8,16 +8,19 @@ from src.QuestionGenerator import QGenerator
 
 app = FastAPI()
 
+origins = [
+    "https://frontend-chenghengli.cloud.okteto.net",
+    "http://localhost:8080"
+]
 
-
-# NEW
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8080"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 
 

@@ -10,7 +10,7 @@ import VueAxios from "vue-axios";
 const app = createApp(App);
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = 'http://localhost:5000/';  // the FastAPI backend
+axios.defaults.baseURL = 'https://backend-chenghengli.cloud.okteto.net/';  // the FastAPI backend  https://backend-chenghengli.cloud.okteto.net/  http://localhost:5000/
 
 app.use(router);
 app.mount("#app");
