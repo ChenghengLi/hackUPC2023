@@ -2,6 +2,10 @@
   <div class="home full-screen-container d-flex flex-column justify-content-center">
     <TitleComponent></TitleComponent>
 
+    <img alt="Vue logo" src="../assets/logo.png">
+    <StartButtonComponent />
+    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <SlideComponent />
     <UploadComponent></UploadComponent>
 
     <StartButtonComponent></StartButtonComponent>
@@ -15,8 +19,12 @@
 import HelloWorld from '@/components/HelloWorld.vue'
 import TitleComponent from '@/components/TitleComponent.vue'
 import StartButtonComponent from '@/components/StartButtonComponent.vue'
+
 import UploadComponent from '@/components/UploadComponent.vue';
+import SlideComponent from '@/components/SlideComponent.vue'
 </script>
+
+
 
 <style scoped>
 .home {

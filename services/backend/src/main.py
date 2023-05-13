@@ -3,7 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-
+from src.Summarizer import Summarizer
+from src.Reader import Reader
+from src.QuestionGenerator import QGenerator
 
 # NEW
 app.add_middleware(
@@ -18,6 +20,10 @@ app.add_middleware(
 
 @app.get("/")
 def home():
-    return "FDSfsdfghfhgfhgfhddfdfd1111!"
+    reader = Reader("src/exempledef.pdf")
+    summarizer = Summarizer()
+    summarizer.detect_language(reader.returnPaperContent())
+    question = QGenerator(reader.returnPaperContent(1,2))
+    return question.gerateMCQ()
 
 
