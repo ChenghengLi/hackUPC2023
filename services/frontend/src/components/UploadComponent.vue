@@ -1,7 +1,7 @@
 <template> 
     <button type="button" class="btn" @click="handleButtonClick">
     <img alt="upload the document here" src="../assets/upload.png" class="button-image">
-    <input type="file" ref="fileInput" style="display: none;" @change="handleFileUpload">
+    <input type="file" accept="application/pdf,application/vnd.ms-excel" ref="fileInput" style="display: none;" @change="handleFileUpload">
   </button>
 </template>
 
@@ -22,11 +22,10 @@ function handleFileUpload(event) {
     return
   }else{
     const formData = new FormData()
-    formData.append('pdf', selectedFile)
+    formData.append('file', selectedFile)
     
-    const path = 'http://localhost:8080/upload/'
     // send the form data to the backend using axios
-    axios.post(path, formData, {
+    axios.post('/upload', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
@@ -40,7 +39,6 @@ function handleFileUpload(event) {
       // handle any errors that occur here
     })
   }
-  // do something with the selected files
 }
 </script>
 

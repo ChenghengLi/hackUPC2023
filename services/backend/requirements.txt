@@ -9,3 +9,4 @@ git+https://github.com/boudinfl/pke.git
 git+https://github.com/ramsrigouthamg/Questgen.ai.git
 sentencepiece==0.1.99
 python-multipart==0.0.6
+pdfkit==1.0.0
