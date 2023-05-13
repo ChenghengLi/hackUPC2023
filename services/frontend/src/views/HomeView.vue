@@ -1,20 +1,15 @@
 <template>
   <div class="home full-screen-container d-flex flex-column justify-content-center">
     <TitleComponent></TitleComponent>
-    <StartButtonComponent />
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <UploadComponent></UploadComponent>
 
-    <StartButtonComponent></StartButtonComponent>
-
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
 <script setup>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 import TitleComponent from '@/components/TitleComponent.vue'
-import StartButtonComponent from '@/components/StartButtonComponent.vue'
+import UploadComponent from '@/components/UploadComponent.vue';
 
 
 

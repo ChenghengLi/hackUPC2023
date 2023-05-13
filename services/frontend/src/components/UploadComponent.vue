@@ -1,12 +1,13 @@
 <template>
   <div>
-    <button v-if="showButton" type="button" class="btn" @click="onClick">
-      <img alt="upload the document here" src="../assets/upload.png" class="button-image">
-      <input type="file" accept="application/pdf,application/vnd.ms-excel" ref="fileInput" style="display: none;" @change="handleFileUpload">
+    <button type="button" class="btn" @click="handleButtonClick" v-if="showButton" style="border:none">
+    <img alt="upload the document here" src="../assets/upload.png" class="button-image">
+    <input type="file" accept="application/pdf,application/vnd.ms-excel" ref="fileInput" style="display: none;" @change="handleFileUpload">
   </button>
 
     <FileComponent v-if="!showButton"/>
-    <TextComponent v-if="!showButton"/>
+    <TextComponent v-if="!showButton" name="File uploaded successfully!"/>
+    <StartButtonComponent :file="formData"/>
   </div>
 </template>
 
@@ -14,41 +15,29 @@
 import { ref } from 'vue';
 import FileComponent from './FileComponent.vue';
 import TextComponent from './TextComponent.vue';
-import axios from 'axios'
+import StartButtonComponent from '@/components/StartButtonComponent.vue'
 const showButton = ref(true);
 
-const onClick = () => {
-  showButton.value = false;
+const fileInput = ref(null)
+const handleButtonClick = () => {
+  // add your button click event handler code here
+  fileInput.value.click()
 }
 
-const fileInput = ref(null)
 
+const formData = ref(null)
+const selectedFile = ref("")
 function handleFileUpload(event) {
-  const selectedFile = event.target.files[0]
-  if (!selectedFile || selectedFile.type !== 'application/pdf') {
+  selectedFile.value = event.target.files[0]
+  if (!selectedFile.value || selectedFile.value.type !== 'application/pdf') {
     alert('Please select a PDF file.')
     fileInput.value.value = ''
     return
   }else{
-    const formData = new FormData()
-    formData.append('file', selectedFile)
-    
-    // send the form data to the backend using axios
-    axios.post('/upload', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-    .then(response => {
-      console.log(response.data)
-      // handle the response from the server here
-    })
-    .catch(error => {
-      console.log(error)
-      // handle any errors that occur here
-    })
+    showButton.value = false;
+    formData.value = new FormData()
+    formData.value.append('file', selectedFile)
   }
-  showButton.value = false;
 }
 </script>
 

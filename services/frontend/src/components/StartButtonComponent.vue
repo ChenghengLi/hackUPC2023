@@ -2,15 +2,37 @@
     <div class="row justify-content-center align-items-center">
       <div class="col-md-6">
 
-        <button class="btn btn-primary btn-style" @click="onClick">START</button>
+        <button class="btn btn-outline-primary btn-style" @click="onClick" :disabled="props.file === 0">START</button>
       </div>
     </div>
   </template>
   
   <script setup>
+  import axios from 'axios'
+  import {defineProps} from 'vue'
   const onClick = () => {
-    // Add your click event logic here
+    
+    axios.post('/upload', props.file, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    .then(response => {
+      console.log(response.data)
+      // handle the response from the server here
+    })
+    .catch(error => {
+      console.log(error)
+      // handle any errors that occur here
+    })
   };
+
+  const props = defineProps({
+    file:{
+      type: FormData,
+      default: null
+    }
+  })
   </script>
   
   <style scoped>
@@ -27,8 +49,6 @@
     font-size: 2rem; /* Increase font size */
     font-weight: bold; /* Add bold font weight */
     text-transform: uppercase; /* Add uppercase text transformation */
-    background-color: #007bff; /* Change background color to blue */
-    border-color: #007bff; /* Change border color to blue */
     border-radius: 50px; /* Add border radius to make it round */
     padding: 1rem 2rem; /* Add padding */
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); /* Add box shadow */
