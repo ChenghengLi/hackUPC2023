@@ -20,8 +20,7 @@
         <span class="carousel-control-next-icon" :class="{ 'disable': slides[currentSlide].types !== 'Summary'  && !acabarExercici }" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </a>
-
-      <button class="backHome"> Back </button>
+      <button class="btn btn-outline-info backHome" @click="backHome">Back</button>
     </div>
   </div>
 </template>
@@ -31,6 +30,8 @@ import { ref, onMounted } from 'vue';
 import * as bootstrap from 'bootstrap';
 import SummaryComponent from '@/components/SummaryComponent.vue';
 import GameComponent from '@/components/GameComponent.vue';
+import { useRouter } from 'vue-router'
+const router = useRouter()
 const slides = ref([
   {
     types: "Summary",
@@ -59,7 +60,9 @@ function nextSlide() {
     acabarExercici.value=false;
   }
 }
-
+const backHome = () => {
+  router.push('/')
+}
 function getAcabat(data) {
   acabarExercici.value = data;
 }
@@ -76,9 +79,9 @@ onMounted(() => {
     item.style.height = window.innerHeight + 'px';
   });
 });
-</script scoped>
+</script>
 
-<style>
+<style scoped>
 .carousel-item {
   height: 100%;
 }
@@ -88,18 +91,24 @@ onMounted(() => {
 }
 
 .backHome {
-  background-color: rgb(144, 30, 167);
-  border: 1px solid;
-  margin:0 15px;
-  width: 140px;
-  height: 50px;
-  border-radius: 20px;
-  -moz-border-radius:20px;
-  -o-border-radius: 20px;
-  color:#fff;
-  font-size: 15px;
-  font-weight: bold;
-
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 12px 24px;
+  color: white;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  z-index: 1;
 }
+
+@media only screen and (max-width: 768px) {
+  .backHome {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
 
 </style>
