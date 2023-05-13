@@ -20,7 +20,8 @@ const props = defineProps ({
 <style scoped>
 
 div {
-    font-size: 30px;
+    font-size: 20px;
     padding-top: 10px;
+    font-weight: bold;
 }
 </style>

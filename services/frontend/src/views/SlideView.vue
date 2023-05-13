@@ -13,14 +13,14 @@
             <GameComponent :question="slide.question" :answer="slide.answer" :wrong-answer="slide.wrongAnswer" @childEvent="getAcabat"></GameComponent>
           </div>
         </div>
-        <img src="@/assets/background.jpeg" class="d-block w-100" alt="slide image">
+        <img src="@/assets/purple.jpg" class="d-block w-100" alt="slide image">
       </div>
       <a class="carousel-control-next" :class="{ 'disable': slides[currentSlide].types !== 'Summary' && !acabarExercici }" href="#" :data-bs-target="`#${carouselId}`" data-bs-slide="next"
         @click="nextSlide()" >
         <span class="carousel-control-next-icon" :class="{ 'disable': slides[currentSlide].types !== 'Summary'  && !acabarExercici }" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </a>
-      <button class="btn btn-outline-info backHome" @click="backHome">Back</button>
+      <button class="btn btn-outline-dark backHome" @click="backHome">Back</button>
     </div>
   </div>
 </template>
@@ -101,6 +101,9 @@ onMounted(() => {
   outline: none;
   cursor: pointer;
   z-index: 1;
+  font-weight: bold;
+  margin-left: 30px;
+  margin-bottom: 20px;
 }
 
 @media only screen and (max-width: 768px) {
