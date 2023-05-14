@@ -19,20 +19,23 @@
 
 <script setup>
 import { ref } from 'vue'
-import { inject } from "vue";
+import { inject} from "vue";
 import FileComponent from './FileComponent.vue'
 import TextComponent from './TextComponent.vue'
+
 
 const axios = inject('axios');
 import { useRouter } from 'vue-router'
 const router = useRouter()
 
 
-const msg = ref("")
+
+
 const toGame = () => {
-  router.push({ path: '/slide',
-    name: 'slide', params: { data: msg.value }})
+    router.push('/slide')
+
 }
+
 
 const showButton = ref(true)
 const formData = ref(null)
@@ -47,20 +50,11 @@ const cancelFile = () => {
 
 
 
+
+
   const onClick = () => {
     console.log("starte")
-    axios.get('/data/')
-    .then((res) => {
-      console.log(res.data)
-      msg.value = res.data;
-      
-    })
-    .catch((error) => {
-      console.log("err")
-      console.error(error);
-    });
-    console.log(msg.value)
-    console.log("starte2")
+    
     toGame()
   };
 

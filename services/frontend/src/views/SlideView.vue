@@ -26,20 +26,21 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, inject } from 'vue'
 import * as bootstrap from 'bootstrap'
 import SummaryComponent from '@/components/SummaryComponent.vue'
 import GameComponent from '@/components/GameComponent.vue'
+
+const axios = inject('axios');
 
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-
 const slides = ref([
   {
     types: "Summary",
-    content: router.params
+    content: "dededed"
   },
   {
     types: "Game",
@@ -54,6 +55,29 @@ const slides = ref([
     wrongAnswer: ['Wasting', 'Precious Time', 'Spend']
   }
 ])
+
+
+
+
+function setSlides(datos) {
+  const slide = []
+  for (let i = 0; i < datos.length; i++) {
+    slides.value.push({
+      types: "Summary",
+      content: datos[i]
+    })
+    for (let j =1; j < datos[i].length; j++) {
+      slide.value.push({
+        types: "Game",
+        question: datos[i][j].question,
+        answer: datos[i][j].answer,
+        wrongAnswer: datos[i][j].options
+      })
+    }
+  slides.value = slide
+}
+}
+
 
 const carouselId = 'carousel-' + Math.floor(Math.random() * 1000)
 const currentSlide = ref(0);
@@ -72,18 +96,37 @@ function getAcabat(data) {
   acabarExercici.value = data;
 }
 onMounted(() => {
+  
+  
   new bootstrap.Carousel(document.querySelector(`#${carouselId}`), {
     interval: 2000,
     keyboard: true,
     ride: false,
     pause: 'hover'
-  });
+  })
+
+  alert("Loading the summaries please wait a few seconds")
+
+
+
+  axios.get('/data/')
+    .then((res) => {
+      setSlides(res.data);
+      
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+
+
 
   const carouselItems = document.querySelectorAll(`#${carouselId} .carousel-item`);
   carouselItems.forEach(item => {
     item.style.height = window.innerHeight + 'px'
-  });
-});
+  })
+
+
+})
 </script>
 
 <style scoped>

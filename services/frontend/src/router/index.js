@@ -7,12 +7,14 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    props: true
   },
   {
     path: '/slide',
     name: 'slide',
-    component: SlideView
+    component: SlideView,
+    props: true
   }
 ]
 
