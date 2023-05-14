@@ -40,6 +40,7 @@ def getQuestions():
     output["topic"] = sum
     output["question"] = question.gerateMCQ()
     print(output)
+    Reader.text = ""
     return JSONResponse(output)
     '''
     output = dict()

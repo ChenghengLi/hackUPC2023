@@ -1,15 +1,19 @@
 <template>
     <div class="question" style="font-weight:bold" :style="{marginTop: '10px'}">{{ props.question }}</div>
     <button class="floating-button" :class="{'disable': acabat }" :style="{ bottom: buttonPosition.bottom, left: buttonPosition.left }" @click="correctButton" style="background-color: rgb(163, 97, 225);">
-      {{props.answer}}
+      {{props.answer.toUpperCase()}}
     </button>
     <div v-for="(i,index) in props.wrongAnswer" :key="index">
       <button class="floating-button" :class="{'disable': acabat }" :style="{ bottom: wrongButtonPositions[index].bottom, left: wrongButtonPositions[index].left }" style="background-color: rgb(163, 97, 225);" @click="wrongButton">
-        {{i}}
+        {{i.toUpperCase()}}
       </button>
     </div>
     <div v-if="acabat" style="font-size: 30px; text-align:center" :style="{color: description === 'You are wrong!' ? 'red' : 'green'}">
         {{ description }}
+        <br>
+        <br>
+        <br>
+        Answer: {{ props.answer.toUpperCase() }}
       </div>
   </template>
   
