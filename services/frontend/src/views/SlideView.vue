@@ -1,19 +1,18 @@
 <template>
-  <div class="container-fluid background">
+  <div class="background">
     <div :id="carouselId" class="carousel slide" data-bs-ride="carousel">
       
       <div class="carousel-inner">
         <div v-for="(slide, index) in slides" :key="index" :class="{ active: index === currentSlide }"
           class="carousel-item">
 
-          <div v-if="slide.types === 'Summary'">
+          <div v-if="slide.types === 'Summary'" style="display:flex align-items: center justify-content:center">
             <SummaryComponent :summary="slide.content"></SummaryComponent>
           </div>
           <div v-else>
             <GameComponent :question="slide.question" :answer="slide.answer" :wrong-answer="slide.wrongAnswer" @childEvent="getAcabat"></GameComponent>
           </div>
         </div>
-        <!-- <img src="@/assets/purple.jpg" class="d-block w-100 imgGame" alt="slide image"> -->
       </div>
       <a class="carousel-control-next" :class="{ 'disable': slides[currentSlide].types !== 'Summary' && !acabarExercici }" href="#" :data-bs-target="`#${carouselId}`" data-bs-slide="next"
         @click="nextSlide()" >
@@ -32,7 +31,7 @@ import SummaryComponent from '@/components/SummaryComponent.vue'
 import GameComponent from '@/components/GameComponent.vue'
 
 const axios = inject('axios');
-
+const datos = ref(null);
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -40,41 +39,30 @@ const router = useRouter()
 const slides = ref([
   {
     types: "Summary",
-    content: "dededed"
-  },
-  {
-    types: "Game",
-    question: "What is SO?",
-    answer: "Operation System",
-    wrongAnswer: ["Opera Song", "Open Source","Salty Ocean"]
-  },
-  {
-    types: "Game",
-    question: "What is difficult to collect, environmentally harmful to reprocess, often made of and contaminated by toxic materials, and not economical to recycle?",
-    answer: "waste",
-    wrongAnswer: ['Wasting', 'Precious Time', 'Spend']
+    content: "Loading datas"
   }
 ])
 
-
+console.log(datos.value)
 
 
 function setSlides(datos) {
-  const slide = []
-  for (let i = 0; i < datos.length; i++) {
+
+ 
     slides.value.push({
       types: "Summary",
-      content: datos[i]
+      content: datos.topic
     })
-    for (let j =1; j < datos[i].length; j++) {
-      slide.value.push({
-        types: "Game",
-        question: datos[i][j].question,
-        answer: datos[i][j].answer,
-        wrongAnswer: datos[i][j].options
-      })
-    }
-  slides.value = slide
+    console.log(Object.keys(datos.question).length)
+    for (let i = 0; i < Object.keys(datos.question).length; i++) {
+    
+      slides.value.push({
+      types: "Games",
+      question: datos.question[i].question,
+      answer: datos.question[i].answer,
+      wrongAnswer: datos.question[i].options
+    })
+
 }
 }
 
@@ -96,6 +84,26 @@ function getAcabat(data) {
   acabarExercici.value = data;
 }
 onMounted(() => {
+
+  alert("Loading the summaries please wait a few seconds")
+
+  axios.get('/data/')
+    .then((res) => {
+      console.log(res.data);
+      setSlides(res.data);
+      datos.value = res.data
+      console.log(slides.value);
+
+      const carouselItems = document.querySelectorAll(`#${carouselId} .carousel-item`);
+      carouselItems.forEach(item => {
+      item.style.height = window.innerHeight + 'px'
+  })
+    
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+
   
   
   new bootstrap.Carousel(document.querySelector(`#${carouselId}`), {
@@ -105,25 +113,14 @@ onMounted(() => {
     pause: 'hover'
   })
 
-  alert("Loading the summaries please wait a few seconds")
+  
 
 
 
-  axios.get('/data/')
-    .then((res) => {
-      setSlides(res.data);
-      
-    })
-    .catch((error) => {
-      console.error(error);
-    })
+  
 
 
 
-  const carouselItems = document.querySelectorAll(`#${carouselId} .carousel-item`);
-  carouselItems.forEach(item => {
-    item.style.height = window.innerHeight + 'px'
-  })
 
 
 })
@@ -164,9 +161,6 @@ onMounted(() => {
   margin-bottom: 20px;
 }
 
-.background {
-  background-image: url("../assets/purple.jpg");
-}
 @media only screen and (max-width: 768px) {
   .backHome {
     font-size: 14px;
@@ -174,14 +168,17 @@ onMounted(() => {
   }
 }
 
-.imgGame {
-  max-width: 100%;
-  height: 900px;
+.background {
+  background-image: url("../assets/purple.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
+
 
 @media only screen and (min-width: 768px) {
   /* Styles for laptops and desktops */
-  .imgGame {
+  .background {
     max-width: 100%;
     height: 100%;
   }
@@ -189,9 +186,9 @@ onMounted(() => {
 
 @media only screen and (max-width: 767px) {
   /* Styles for mobile devices */
-  .imgGame {
+  .background {
     max-width: 100%;
-    height: 100%;
+    height: 900px;
   }
 }
 </style>
