@@ -199,7 +199,16 @@ onMounted(() => {
     max-width: 100%;
     height: 2000px;
     overflow: hidden;
+    
   }
+
+  ::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  scrollbar-width: none;
+}
 }
 
 @media only screen and (max-width: 767px) {

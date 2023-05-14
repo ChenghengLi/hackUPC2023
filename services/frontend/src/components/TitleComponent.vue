@@ -1,7 +1,7 @@
 <template>
   <div class="row justify-content-center align-items-center">
     <div class="col-md-6">
-      <h1 class="text-center title-style">Review Challenge!</h1>
+      <h1 class="text-center title-style">SlideSum!</h1>
     </div>
   </div>
 </template>
