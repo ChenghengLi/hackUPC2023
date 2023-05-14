@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid background">
     <div :id="carouselId" class="carousel slide" data-bs-ride="carousel">
       
       <div class="carousel-inner">
@@ -13,7 +13,7 @@
             <GameComponent :question="slide.question" :answer="slide.answer" :wrong-answer="slide.wrongAnswer" @childEvent="getAcabat"></GameComponent>
           </div>
         </div>
-        <img src="@/assets/purple.jpg" class="d-block w-100" alt="slide image">
+        <!-- <img src="@/assets/purple.jpg" class="d-block w-100 imgGame" alt="slide image"> -->
       </div>
       <a class="carousel-control-next" :class="{ 'disable': slides[currentSlide].types !== 'Summary' && !acabarExercici }" href="#" :data-bs-target="`#${carouselId}`" data-bs-slide="next"
         @click="nextSlide()" >
@@ -121,6 +121,9 @@ onMounted(() => {
   margin-bottom: 20px;
 }
 
+.background {
+  background-image: url("../assets/purple.jpg");
+}
 @media only screen and (max-width: 768px) {
   .backHome {
     font-size: 14px;
@@ -128,5 +131,24 @@ onMounted(() => {
   }
 }
 
+.imgGame {
+  max-width: 100%;
+  height: 900px;
+}
 
+@media only screen and (min-width: 768px) {
+  /* Styles for laptops and desktops */
+  .imgGame {
+    max-width: 100%;
+    height: 100%;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  /* Styles for mobile devices */
+  .imgGame {
+    max-width: 100%;
+    height: 100%;
+  }
+}
 </style>
