@@ -8,6 +8,13 @@ import pdfplumber
 from fastapi.responses import JSONResponse
 import io
 
+import nltk
+
+nltk.download('punkt')
+nltk.download('wordnet')
+nltk.download('omw-1.4')
+nltk.download('stopwords')
+
 app = FastAPI()
 
 origins = [
@@ -24,32 +31,37 @@ app.add_middleware(
 )
 
 
-reader = None
-sumerizer = None
-
 @app.get("/data/")
 def getQuestions():
-    
     output = dict()
     summarizer = Summarizer()
+    sum = summarizer.summarize(Reader.text)
+    question = QGenerator(sum)
+    output["topic"] = sum
+    output["question"] = question.gerateMCQ()
+    print(output)
+    return JSONResponse(output)
+    '''
+    output = dict()
     i = 0
     for i in range(0, reader.pages() + 1, 2):
-        sum = summarizer.detect_language(reader.returnPaperContent(i, i + 2))
+        text = reader.returnPaperContent(i, i + 2)
+        print(text)
+        sum = summarizer.summarize(reader.returnPaperContent(i, i + 2))
         question = QGenerator(reader.returnPaperContent(i, i + 2))
         dict[i] = {"sum": sum, "question": question.gerateMCQ()}
         i += 1
-    
-    return "prueba" #JSONResponse(output)
+    '''
 
-    # Return the PDF file
 
 @app.post("/upload/")
 async def create_upload_file(pdf_file: UploadFile = File(...)):
-    contents = await pdf_file.read()
-    with io.BytesIO(contents) as file:
+
+    with pdf_file.file as file:
         pdf = pdfplumber.open(file).pages
-        reader = Reader()
-        reader.setPaperContent(pdf)
-    print(reader.returnPaperContent())
+        Reader.paperContent = pdf
+        for i in range(len(pdf)):
+            Reader.text +=pdf[i].extract_text()
+            Reader.text += "\n"
     return {"file": pdf_file}
 
