@@ -1,7 +1,6 @@
 #  Software para optimizar el rendimeinto de los estduios utlizando la IA
 
 
-SPA: Single-page application, más información en https://es.wikipedia.org/wiki/Single-page_application
 
 ### Creador: Chengheng Li Chen, Wenwen Yang, Xu Yao Chen y Zhihan Lin 
 
